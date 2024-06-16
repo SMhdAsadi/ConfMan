@@ -3,10 +3,23 @@
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "-----------------------------------START-----------------------------------": "",
+    "start": "npx expo start",
+    "start:clear": "yarn start --clear",
+    "----------------------------------PREBUILD---------------------------------": "",
+    "prebuild": "npx expo prebuild",
+    "prebuild:clean": "yarn prebuild --clean",
+    "-------------------------------BUILD ANDROID-------------------------------": "",
+    "android:debug": "npx expo run:android",
+    "android:debug:clean": "yarn android --no-build-cache",
+    "android:release": "yarn android --variant release --no-bundler",
+    "android:release:clean": "yarn android:release --no-build-cache",
+    "----------------------------------GRADLE-----------------------------------": "",
+    "gradle:clean": "cd android && ./gradlew clean && cd ..",
+    "gradle:debug:apk": "cd android && ./gradlew assembleDebug && cd ..",
+    "gradle:release:apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "expo": "~51.0.14",
