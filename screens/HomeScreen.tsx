@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function HomeScreen() {
+	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
 
 	function onPress() {
@@ -9,7 +11,7 @@ function HomeScreen() {
 	}
 
 	return (
-		<View style={sheet.screen}>
+		<View style={styles.screen}>
 			<Text>Home Screen</Text>
 			<Button title="Go to Details" onPress={onPress} />
 		</View>
@@ -18,7 +20,7 @@ function HomeScreen() {
 
 export default HomeScreen;
 
-const sheet = StyleSheet.create({
+const sheet = createStyleSheet({
 	screen: {
 		flex: 1,
 		alignItems: "center",
