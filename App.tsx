@@ -1,8 +1,7 @@
-import { StyleSheet } from "react-native";
-import { Navigation } from "./navigation/navigation";
+import { Navigation } from "@/navigation/navigation";
 
-export default function App() {
+function App() {
 	return <Navigation />;
 }
 
-const styles = StyleSheet.create({});
+export default App;
