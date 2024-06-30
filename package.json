@@ -1,38 +1,38 @@
 {
-  "name": "confman",
-  "version": "1.0.0",
-  "main": "expo/AppEntry.js",
-  "scripts": {
-    "-----------------------------------START-----------------------------------": "",
-    "start": "npx expo start",
-    "start:clear": "yarn start --clear",
-    "----------------------------------PREBUILD---------------------------------": "",
-    "prebuild": "npx expo prebuild",
-    "prebuild:clean": "yarn prebuild --clean",
-    "-------------------------------BUILD ANDROID-------------------------------": "",
-    "android:debug": "npx expo run:android",
-    "android:debug:clean": "yarn android --no-build-cache",
-    "android:release": "yarn android --variant release --no-bundler",
-    "android:release:clean": "yarn android:release --no-build-cache",
-    "----------------------------------GRADLE-----------------------------------": "",
-    "gradle:clean": "cd android && ./gradlew clean && cd ..",
-    "gradle:debug:apk": "cd android && ./gradlew assembleDebug && cd ..",
-    "gradle:release:apk": "cd android && ./gradlew assembleRelease && cd ..",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
-  },
-  "dependencies": {
-    "expo": "~51.0.14",
-    "expo-dev-client": "~4.0.18",
-    "expo-status-bar": "~1.12.1",
-    "react": "18.2.0",
-    "react-native": "0.74.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@biomejs/biome": "1.8.1",
-    "@types/react": "~18.2.45",
-    "typescript": "^5.1.3"
-  },
-  "private": true
+	"name": "confman",
+	"version": "1.0.0",
+	"main": "expo/AppEntry.js",
+	"scripts": {
+		"-----------------------------------START-----------------------------------": "",
+		"start": "npx expo start",
+		"start:clear": "yarn start --clear",
+		"----------------------------------PREBUILD---------------------------------": "",
+		"prebuild": "npx expo prebuild",
+		"prebuild:clean": "yarn prebuild --clean",
+		"-------------------------------BUILD ANDROID-------------------------------": "",
+		"android:debug": "npx expo run:android",
+		"android:debug:clean": "yarn android:debug --no-build-cache",
+		"android:release": "yarn android:debug --variant release --no-bundler",
+		"android:release:clean": "yarn android:release --no-build-cache",
+		"----------------------------------GRADLE-----------------------------------": "",
+		"gradle:clean": "cd android && ./gradlew clean && cd ..",
+		"gradle:debug:apk": "cd android && ./gradlew assembleDebug && cd ..",
+		"gradle:release:apk": "cd android && ./gradlew assembleRelease && cd ..",
+		"android": "expo run:android",
+		"ios": "expo run:ios"
+	},
+	"dependencies": {
+		"expo": "~51.0.14",
+		"expo-dev-client": "~4.0.18",
+		"expo-status-bar": "~1.12.1",
+		"react": "18.2.0",
+		"react-native": "0.74.2"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.20.0",
+		"@biomejs/biome": "1.8.1",
+		"@types/react": "~18.2.45",
+		"typescript": "^5.1.3"
+	},
+	"private": true
 }
