@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
+import { Button, Text } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function HomeScreen() {
@@ -13,7 +14,7 @@ function HomeScreen() {
 	return (
 		<View style={styles.screen}>
 			<Text>Home Screen</Text>
-			<Button title="Go to Details" onPress={onPress} />
+			<Button onPress={onPress}>Go to details</Button>
 		</View>
 	);
 }
