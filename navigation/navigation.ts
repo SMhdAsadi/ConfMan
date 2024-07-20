@@ -10,6 +10,9 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const RootStack = createNativeStackNavigator({
+	screenOptions: {
+		headerShown: false,
+	},
 	groups: {
 		SignedIn: {
 			if: useIsSignedIn,
