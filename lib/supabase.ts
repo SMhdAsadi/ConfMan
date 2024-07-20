@@ -1,5 +1,6 @@
 import { AppState } from "react-native";
 import "react-native-url-polyfill/auto";
+import type { Database } from "@/database.types";
 import { createClient } from "@supabase/supabase-js";
 import { MMKV } from "react-native-mmkv";
 
@@ -22,7 +23,7 @@ const storage = {
 	},
 };
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
 	auth: {
 		storage: storage,
 		autoRefreshToken: true,
