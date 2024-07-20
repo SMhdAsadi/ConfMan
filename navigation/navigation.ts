@@ -1,5 +1,8 @@
+import useIsSignedIn from "@/hooks/useIsSignedIn";
+import useIsSignedOut from "@/hooks/useIsSignedOut";
 import DetailsScreen from "@/screens/DetailsScreen";
 import HomeScreen from "@/screens/HomeScreen";
+import LoginScreen from "@/screens/LoginScreen";
 import {
 	type StaticParamList,
 	createStaticNavigation,
@@ -7,11 +10,21 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const RootStack = createNativeStackNavigator({
-	screens: {
-		Home: HomeScreen,
-		Details: DetailsScreen,
+	groups: {
+		SignedIn: {
+			if: useIsSignedIn,
+			screens: {
+				Home: HomeScreen,
+				Details: DetailsScreen,
+			},
+		},
+		SignedOut: {
+			if: useIsSignedOut,
+			screens: {
+				Login: LoginScreen,
+			},
+		},
 	},
-	initialRouteName: "Home",
 });
 
 type RootStackParamList = StaticParamList<typeof RootStack>;
