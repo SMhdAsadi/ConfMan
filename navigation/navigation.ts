@@ -1,8 +1,9 @@
 import useIsSignedIn from "@/hooks/useIsSignedIn";
 import useIsSignedOut from "@/hooks/useIsSignedOut";
-import DetailsScreen from "@/screens/DetailsScreen";
+import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
+import ProfileScreen from "@/screens/ProfileScreen";
 import {
 	type StaticParamList,
 	createStaticNavigation,
@@ -18,7 +19,8 @@ const RootStack = createNativeStackNavigator({
 			if: useIsSignedIn,
 			screens: {
 				Home: HomeScreen,
-				Details: DetailsScreen,
+				Profile: ProfileScreen,
+				ConferenceList: ConferenceListScreen,
 			},
 		},
 		SignedOut: {

@@ -3,23 +3,19 @@ import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
-function DetailsScreen() {
+function ConferenceListScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
 
-	function onPress() {
-		navigation.goBack();
-	}
-
 	return (
 		<View style={styles.screen}>
-			<Text>Details Screen</Text>
-			<Button onPress={onPress}>Back to home</Button>
+			<Text>Conference List Screen</Text>
+			<Button onPress={navigation.goBack}>Go Back</Button>
 		</View>
 	);
 }
 
-export default DetailsScreen;
+export default ConferenceListScreen;
 
 const sheet = createStyleSheet({
 	screen: {
