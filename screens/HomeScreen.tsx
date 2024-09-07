@@ -39,10 +39,11 @@ function HomeScreen() {
 
 export default HomeScreen;
 
-const sheet = createStyleSheet({
+const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
 		justifyContent: "center",
+		backgroundColor: colors.background,
 	},
 	content: {
 		flex: 1,
@@ -56,4 +57,4 @@ const sheet = createStyleSheet({
 		flexDirection: "row",
 		columnGap: 12,
 	},
-});
+}));

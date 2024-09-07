@@ -77,13 +77,14 @@ function ProfileScreen() {
 
 export default ProfileScreen;
 
-const sheet = createStyleSheet({
+const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
+		backgroundColor: colors.background,
 	},
 	content: {
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
 	},
-});
+}));

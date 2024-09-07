@@ -77,9 +77,10 @@ function ConferenceListScreen() {
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet(() => ({
+const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
+		backgroundColor: colors.background,
 	},
 	content: {
 		flex: 1,

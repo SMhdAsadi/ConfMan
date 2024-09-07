@@ -12,6 +12,8 @@ function LoginScreen() {
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<AuthError | null>(null);
+	const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+	const textInputIcon = isPasswordHidden ? "eye-off" : "eye";
 
 	async function login() {
 		setError(null);
@@ -52,8 +54,14 @@ function LoginScreen() {
 					label="Password"
 					value={password}
 					onChangeText={setPassword}
-					secureTextEntry
+					secureTextEntry={isPasswordHidden}
 					left={<TextInput.Icon icon="shield" />}
+					right={
+						<TextInput.Icon
+							icon={textInputIcon}
+							onPress={() => setIsPasswordHidden((v) => !v)}
+						/>
+					}
 				/>
 				<HelperText type="error" visible={error !== null}>
 					{error?.message}
@@ -69,11 +77,12 @@ function LoginScreen() {
 
 export default LoginScreen;
 
-const sheet = createStyleSheet({
+const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
 		justifyContent: "center",
 		paddingHorizontal: 24,
+		backgroundColor: colors.background,
 	},
 	header: {
 		marginBottom: 16,
@@ -84,4 +93,4 @@ const sheet = createStyleSheet({
 	email: {
 		marginBottom: 12,
 	},
-});
+}));
