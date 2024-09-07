@@ -1,12 +1,18 @@
+import { MD3DarkTheme, MD3LightTheme, type MD3Theme } from "react-native-paper";
 import { UnistylesRegistry } from "react-native-unistyles";
-import { breakpoints } from "./breakpoints";
-import { darkTheme, lightTheme } from "./themes";
 
+const breakpoints = {
+	xs: 0,
+	sm: 576,
+	md: 768,
+	lg: 992,
+	xl: 1200,
+} as const;
 type AppBreakpoints = typeof breakpoints;
 
 type AppThemes = {
-	light: typeof lightTheme;
-	dark: typeof darkTheme;
+	light: MD3Theme;
+	dark: MD3Theme;
 };
 
 declare module "react-native-unistyles" {
@@ -16,8 +22,8 @@ declare module "react-native-unistyles" {
 
 UnistylesRegistry.addBreakpoints(breakpoints)
 	.addThemes({
-		light: lightTheme,
-		dark: darkTheme,
+		light: MD3LightTheme,
+		dark: MD3DarkTheme,
 	})
 	.addConfig({
 		adaptiveThemes: true,

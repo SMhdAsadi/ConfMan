@@ -1,5 +1,5 @@
 import { Navigation } from "@/navigation/navigation";
-import "@/theme/unistyles";
+import "@/lib/unistyles";
 import AuthContext from "@/contexts/AuthContext";
 import useSetupSessionListener from "@/hooks/useSetupSessionListener";
 import type { AuthSession } from "@supabase/supabase-js";
