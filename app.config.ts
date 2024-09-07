@@ -9,7 +9,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 	const bundleIdentifier = IS_DEV
 		? "com.smhdasadi.ConfMan.dev"
 		: "com.smhdasadi.ConfMan";
-	const name = IS_DEV ? "ConfMan" : "ConfMan (DEV)";
+	const name = IS_DEV ? "ConfMan (DEV)" : "ConfMan";
 	const versionCode = VERSION.split(".")
 		.map(Number)
 		.reduce((acc, cur) => acc * 1000 + cur, 0);
