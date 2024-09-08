@@ -19,7 +19,10 @@
 		"gradle:debug:apk": "cd android && ./gradlew assembleDebug && cd ..",
 		"gradle:release:apk": "cd android && ./gradlew assembleRelease && cd ..",
 		"android": "expo run:android",
-		"ios": "expo run:ios"
+		"ios": "expo run:ios",
+		"---------------------------------Utility-----------------------------------": "",
+		"android:dark": "adb shell \"cmd uimode night yes\"",
+		"android:light": "adb shell \"cmd uimode night no\""
 	},
 	"dependencies": {
 		"@legendapp/state": "^2.1.15",

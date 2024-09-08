@@ -43,7 +43,6 @@ const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
 		justifyContent: "center",
-		backgroundColor: colors.background,
 	},
 	content: {
 		flex: 1,

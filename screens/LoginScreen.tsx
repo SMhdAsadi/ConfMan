@@ -82,7 +82,6 @@ const sheet = createStyleSheet(({ colors }) => ({
 		flex: 1,
 		justifyContent: "center",
 		paddingHorizontal: 24,
-		backgroundColor: colors.background,
 	},
 	header: {
 		marginBottom: 16,

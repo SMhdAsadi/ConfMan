@@ -80,7 +80,6 @@ export default ProfileScreen;
 const sheet = createStyleSheet(({ colors }) => ({
 	screen: {
 		flex: 1,
-		backgroundColor: colors.background,
 	},
 	content: {
 		flex: 1,
