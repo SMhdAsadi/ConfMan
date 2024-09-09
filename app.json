@@ -19,10 +19,6 @@
 				"backgroundColor": "#006767"
 			},
 			"package": "com.smhdasadi.ConfMan"
-		},
-		"extra": {
-			"supportsRTL": true,
-			"forcesRTL": true
 		}
 	}
 }
