@@ -11,6 +11,7 @@ import {
 
 type AuthContext = {
 	session: Session | null;
+	isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
@@ -21,6 +22,7 @@ let currentSession: Session | null = null;
 export function AuthProvider(props: PropsWithChildren<object>) {
 	const { children } = props;
 	const [session, setSession] = useState<Session | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const updateSession = useCallback((session: Session | null) => {
 		setSession(session);
@@ -34,19 +36,27 @@ export function AuthProvider(props: PropsWithChildren<object>) {
 	useEffect(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
 			updateSession(newSession);
+			setIsLoading(false);
 		});
 
 		return data.subscription.unsubscribe;
 	}, [updateSession]);
 
 	async function checkSession() {
-		const { data } = await supabase.auth.getSession();
+		setIsLoading(true);
+		try {
+			const { data } = await supabase.auth.getSession();
 
-		updateSession(data.session);
+			updateSession(data.session);
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	return (
-		<AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={{ session, isLoading }}>
+			{children}
+		</AuthContext.Provider>
 	);
 }
 
