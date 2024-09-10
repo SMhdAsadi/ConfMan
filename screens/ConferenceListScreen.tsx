@@ -46,7 +46,7 @@ function ConferenceListScreen() {
 				<Text>{new Date(item.end_date * 1000).toLocaleString()}</Text>
 			</View>
 		),
-		[],
+		[styles],
 	);
 
 	return (

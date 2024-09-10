@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase";
-import { storage } from "@/state/storage";
 import type { AuthError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { View } from "react-native";
@@ -19,17 +18,12 @@ function LoginScreen() {
 		setError(null);
 		setLoading(true);
 
-		const { data, error } = await supabase.auth.signInWithPassword({
+		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
 		});
 
 		setError(error);
-
-		if (error === null) {
-			storage.set("user", JSON.stringify(data.user));
-		}
-
 		setLoading(false);
 	}
 

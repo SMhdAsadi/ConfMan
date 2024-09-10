@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase";
-import { storage } from "@/state/storage";
 import { useNavigation } from "@react-navigation/native";
 import type { AuthError, AuthUser } from "@supabase/supabase-js";
 import { useState } from "react";
@@ -14,7 +13,7 @@ function ProfileScreen() {
 	const [user] = useMMKVObject<AuthUser>("user");
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<AuthError | null>(null);
+	const [, setError] = useState<AuthError | null>(null);
 
 	if (!user) return null;
 
@@ -35,11 +34,6 @@ function ProfileScreen() {
 		const { error } = await supabase.auth.signOut();
 
 		setError(error);
-
-		if (error === null) {
-			storage.delete("user");
-		}
-
 		setLoading(false);
 	}
 

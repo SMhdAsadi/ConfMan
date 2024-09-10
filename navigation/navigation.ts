@@ -1,5 +1,4 @@
-import useIsSignedIn from "@/hooks/useIsSignedIn";
-import useIsSignedOut from "@/hooks/useIsSignedOut";
+import { useIsLoggedIn, useIsLoggedOut } from "@/contexts/AuthContext";
 import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
@@ -16,7 +15,7 @@ const RootStack = createNativeStackNavigator({
 	},
 	groups: {
 		SignedIn: {
-			if: useIsSignedIn,
+			if: useIsLoggedIn,
 			screens: {
 				Home: HomeScreen,
 				Profile: ProfileScreen,
@@ -24,7 +23,7 @@ const RootStack = createNativeStackNavigator({
 			},
 		},
 		SignedOut: {
-			if: useIsSignedOut,
+			if: useIsLoggedOut,
 			screens: {
 				Login: LoginScreen,
 			},
