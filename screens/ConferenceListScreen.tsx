@@ -1,4 +1,4 @@
-import type { Database } from "@/database.types";
+import type { Tables } from "@/database.types";
 import { supabase } from "@/lib/supabase";
 import { useNavigation } from "@react-navigation/native";
 import type { PostgrestError } from "@supabase/supabase-js";
@@ -11,7 +11,7 @@ import {
 	useStyles,
 } from "react-native-unistyles";
 
-type Conference = Database["public"]["Tables"]["Conference"]["Row"];
+type Conference = Tables<"Conference">;
 
 function ConferenceListScreen() {
 	const { styles } = useStyles(sheet);
