@@ -1,3 +1,4 @@
+import { useUser } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { useNavigation } from "@react-navigation/native";
 import type { AuthError, AuthUser } from "@supabase/supabase-js";
@@ -10,7 +11,7 @@ import { createStyleSheet, useStyles } from "react-native-unistyles";
 function ProfileScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
-	const [user] = useMMKVObject<AuthUser>("user");
+	const user = useUser();
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [, setError] = useState<AuthError | null>(null);
