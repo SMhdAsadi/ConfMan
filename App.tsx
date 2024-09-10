@@ -1,9 +1,9 @@
-import "@/lib/unistyles";
-import { useGlobalListeners } from "@/hooks/useGlobalListeners";
-import { useThemes } from "@/hooks/useThemes";
-import { Navigation } from "@/navigation/navigation";
+import "./lib/unistyles";
 import { PaperProvider } from "react-native-paper";
 import { AuthProvider } from "./contexts/AuthContext";
+import { useGlobalListeners } from "./hooks/useGlobalListeners";
+import { useThemes } from "./hooks/useThemes";
+import { Navigation } from "./lib/navigation";
 
 function App() {
 	useGlobalListeners();
