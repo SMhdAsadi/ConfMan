@@ -26,7 +26,7 @@ function HomeScreen() {
 				</Text>
 				<View style={styles.buttonContainer}>
 					<Button mode="contained-tonal" onPress={goToConferenceList}>
-						conference list
+						conferences
 					</Button>
 					<Button mode="contained-tonal" onPress={goToProfile}>
 						profile

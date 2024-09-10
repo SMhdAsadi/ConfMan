@@ -1,10 +1,9 @@
+import { useConferenceListQuery } from "@/api/useConferenceListQuery";
 import type { Tables } from "@/database.types";
-import { supabase } from "@/lib/supabase";
 import { useNavigation } from "@react-navigation/native";
-import type { PostgrestError } from "@supabase/supabase-js";
-import { useCallback, useState } from "react";
-import { FlatList, View } from "react-native";
-import { Appbar, Button, FAB, Text } from "react-native-paper";
+import { useCallback } from "react";
+import { FlatList, RefreshControl, View } from "react-native";
+import { Appbar, Text } from "react-native-paper";
 import {
 	UnistylesRuntime,
 	createStyleSheet,
@@ -16,25 +15,8 @@ type Conference = Tables<"Conference">;
 function ConferenceListScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
-	const [conferences, setConferences] = useState<Conference[]>([]);
-	const [error, setError] = useState<PostgrestError | null>(null);
-	const [loading, setLoading] = useState(false);
 
-	async function fetchConferences() {
-		setLoading(true);
-		setError(null);
-
-		const { data: conferences, error } = await supabase
-			.from("Conference")
-			.select("*");
-
-		setError(error);
-		if (error === null) {
-			setConferences(conferences);
-		}
-
-		setLoading(false);
-	}
+	const { data, error, isFetching, refetch } = useConferenceListQuery();
 
 	const renderItem = useCallback(
 		({ item }: { item: Conference }) => (
@@ -53,24 +35,19 @@ function ConferenceListScreen() {
 		<View style={styles.screen}>
 			<Appbar.Header>
 				<Appbar.BackAction onPress={navigation.goBack} />
-				<Appbar.Content title="Conference List" />
+				<Appbar.Content title="Conferences" />
 			</Appbar.Header>
 			<View style={styles.content}>
 				{error && <Text>Error: {error.message}</Text>}
 				<FlatList
-					data={conferences}
+					data={data}
 					renderItem={renderItem}
+					refreshControl={
+						<RefreshControl refreshing={isFetching} onRefresh={refetch} />
+					}
 					keyExtractor={(item) => item.conference_id.toString()}
 				/>
 			</View>
-			<FAB
-				icon="refresh"
-				label="refresh"
-				style={styles.fab}
-				loading={loading}
-				disabled={loading}
-				onPress={fetchConferences}
-			/>
 		</View>
 	);
 }
