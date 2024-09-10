@@ -1,3 +1,4 @@
+import { useSignOutMutation } from "@/api/useSignOutMutation";
 import { useUser } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { useNavigation } from "@react-navigation/native";
@@ -5,37 +6,40 @@ import type { AuthError, AuthUser } from "@supabase/supabase-js";
 import { useState } from "react";
 import { View } from "react-native";
 import { useMMKVObject } from "react-native-mmkv";
-import { Appbar, Button, Dialog, Icon, Text } from "react-native-paper";
+import {
+	Appbar,
+	Button,
+	Dialog,
+	Icon,
+	Snackbar,
+	Text,
+} from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function ProfileScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
 	const user = useUser();
+	const { error, isPending, mutate } = useSignOutMutation();
+
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [, setError] = useState<AuthError | null>(null);
+	const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
 
 	if (!user) return null;
 
-	function showDialog() {
-		setIsDialogVisible(true);
+	function logout() {
+		hideDialog();
+		mutate(undefined, {
+			onError: () => setIsSnackbarVisible(true),
+		});
 	}
 
 	function hideDialog() {
 		setIsDialogVisible(false);
 	}
 
-	async function logout() {
-		hideDialog();
-
-		setLoading(true);
-		setError(null);
-
-		const { error } = await supabase.auth.signOut();
-
-		setError(error);
-		setLoading(false);
+	function hideSnackbar() {
+		setIsSnackbarVisible(false);
 	}
 
 	return (
@@ -50,9 +54,9 @@ function ProfileScreen() {
 				<Text>{user.email}</Text>
 				<Button
 					mode="text"
-					onPress={showDialog}
-					loading={loading}
-					disabled={loading}
+					onPress={() => setIsDialogVisible(true)}
+					loading={isPending}
+					disabled={isPending}
 				>
 					Logout
 				</Button>
@@ -66,6 +70,18 @@ function ProfileScreen() {
 					<Button onPress={logout}>Ok</Button>
 				</Dialog.Actions>
 			</Dialog>
+
+			<Snackbar
+				visible={isSnackbarVisible}
+				onDismiss={hideSnackbar}
+				duration={4000}
+				action={{
+					label: "Close",
+					onPress: hideSnackbar,
+				}}
+			>
+				{error?.message}
+			</Snackbar>
 		</View>
 	);
 }
