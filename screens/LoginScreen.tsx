@@ -1,5 +1,4 @@
-import { supabase } from "@/lib/supabase";
-import type { AuthError } from "@supabase/supabase-js";
+import { useSignInMutation } from "@/api/useSignInMutation";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button, HelperText, Text, TextInput } from "react-native-paper";
@@ -7,24 +6,15 @@ import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function LoginScreen() {
 	const { styles } = useStyles(sheet);
+	const { error, isPending, mutate } = useSignInMutation();
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<AuthError | null>(null);
 	const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 	const textInputIcon = isPasswordHidden ? "eye-off" : "eye";
 
-	async function login() {
-		setError(null);
-		setLoading(true);
-
-		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
-		});
-
-		setError(error);
-		setLoading(false);
+	function login() {
+		mutate({ email, password });
 	}
 
 	return (
@@ -62,7 +52,7 @@ function LoginScreen() {
 				</HelperText>
 			</View>
 
-			<Button mode="contained" onPress={login} loading={loading}>
+			<Button mode="contained" onPress={login} loading={isPending}>
 				Login
 			</Button>
 		</View>
