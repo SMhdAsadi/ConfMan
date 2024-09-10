@@ -9,51 +9,21 @@ export type Json =
 export type Database = {
 	public: {
 		Tables: {
-			Conference: {
+			Attendance: {
 				Row: {
-					conference_id: number;
-					description: string | null;
-					end_date: number;
-					image_url: string | null;
-					location: string | null;
-					name: string;
-					start_date: number;
-				};
-				Insert: {
-					conference_id?: never;
-					description?: string | null;
-					end_date: number;
-					image_url?: string | null;
-					location?: string | null;
-					name: string;
-					start_date: number;
-				};
-				Update: {
-					conference_id?: never;
-					description?: string | null;
-					end_date?: number;
-					image_url?: string | null;
-					location?: string | null;
-					name?: string;
-					start_date?: number;
-				};
-				Relationships: [];
-			};
-			ConferenceAttendance: {
-				Row: {
-					conference_attendance_id: number;
+					attendance_id: number;
 					conference_id: number;
 					participant_id: number;
 					registration_date: number;
 				};
 				Insert: {
-					conference_attendance_id?: never;
+					attendance_id?: number;
 					conference_id: number;
 					participant_id: number;
 					registration_date: number;
 				};
 				Update: {
-					conference_attendance_id?: never;
+					attendance_id?: number;
 					conference_id?: number;
 					participant_id?: number;
 					registration_date?: number;
@@ -89,7 +59,90 @@ export type Database = {
 					},
 				];
 			};
-			ConferenceProgram: {
+			CheckIn: {
+				Row: {
+					attendance_id: number;
+					check_in_id: number;
+					check_in_time: number;
+				};
+				Insert: {
+					attendance_id: number;
+					check_in_id?: never;
+					check_in_time: number;
+				};
+				Update: {
+					attendance_id?: number;
+					check_in_id?: never;
+					check_in_time?: number;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "ParticipantCheckIn_attendance_id_fkey";
+						columns: ["attendance_id"];
+						isOneToOne: false;
+						referencedRelation: "Attendance";
+						referencedColumns: ["attendance_id"];
+					},
+				];
+			};
+			Conference: {
+				Row: {
+					conference_id: number;
+					description: string | null;
+					end_date: number;
+					image_url: string | null;
+					location: string | null;
+					name: string;
+					start_date: number;
+				};
+				Insert: {
+					conference_id?: never;
+					description?: string | null;
+					end_date: number;
+					image_url?: string | null;
+					location?: string | null;
+					name: string;
+					start_date: number;
+				};
+				Update: {
+					conference_id?: never;
+					description?: string | null;
+					end_date?: number;
+					image_url?: string | null;
+					location?: string | null;
+					name?: string;
+					start_date?: number;
+				};
+				Relationships: [];
+			};
+			Participant: {
+				Row: {
+					email: string;
+					first_name: string;
+					last_name: string;
+					organization: string | null;
+					participant_id: number;
+					phone_number: string | null;
+				};
+				Insert: {
+					email: string;
+					first_name: string;
+					last_name: string;
+					organization?: string | null;
+					participant_id?: never;
+					phone_number?: string | null;
+				};
+				Update: {
+					email?: string;
+					first_name?: string;
+					last_name?: string;
+					organization?: string | null;
+					participant_id?: never;
+					phone_number?: string | null;
+				};
+				Relationships: [];
+			};
+			Program: {
 				Row: {
 					conference_id: number;
 					description: string | null;
@@ -131,66 +184,6 @@ export type Database = {
 						isOneToOne: false;
 						referencedRelation: "Conference";
 						referencedColumns: ["conference_id"];
-					},
-				];
-			};
-			Participant: {
-				Row: {
-					email: string;
-					first_name: string;
-					last_name: string;
-					organization: string | null;
-					participant_id: number;
-					phone_number: string | null;
-				};
-				Insert: {
-					email: string;
-					first_name: string;
-					last_name: string;
-					organization?: string | null;
-					participant_id?: never;
-					phone_number?: string | null;
-				};
-				Update: {
-					email?: string;
-					first_name?: string;
-					last_name?: string;
-					organization?: string | null;
-					participant_id?: never;
-					phone_number?: string | null;
-				};
-				Relationships: [];
-			};
-			ParticipantCheckIn: {
-				Row: {
-					check_in_id: number;
-					check_in_time: number;
-					conference_attendance_id: number;
-				};
-				Insert: {
-					check_in_id?: never;
-					check_in_time: number;
-					conference_attendance_id: number;
-				};
-				Update: {
-					check_in_id?: never;
-					check_in_time?: number;
-					conference_attendance_id?: number;
-				};
-				Relationships: [
-					{
-						foreignKeyName: "ParticipantCheckIn_conference_attendance_id_fkey";
-						columns: ["conference_attendance_id"];
-						isOneToOne: false;
-						referencedRelation: "ConferenceAttendance";
-						referencedColumns: ["conference_attendance_id"];
-					},
-					{
-						foreignKeyName: "ParticipantCheckIn_conference_attendance_id_fkey1";
-						columns: ["conference_attendance_id"];
-						isOneToOne: false;
-						referencedRelation: "ConferenceAttendance";
-						referencedColumns: ["conference_attendance_id"];
 					},
 				];
 			};
