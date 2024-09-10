@@ -2,7 +2,7 @@ import { useIsLoggedIn, useIsLoggedOut } from "@/contexts/AuthContext";
 import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
-import ProfileScreen from "@/screens/ProfileScreen";
+import { ProfileScreen } from "@/screens/ProfileScreen";
 import {
 	type StaticParamList,
 	createStaticNavigation,
