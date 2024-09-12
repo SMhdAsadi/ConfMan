@@ -2,6 +2,7 @@ import { useConferenceListQuery } from "@/api/useConferenceListQuery";
 import type { Tables } from "@/database.types";
 import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
+import { Image } from "expo-image";
 import { FlatList, RefreshControl, View } from "react-native";
 import {
 	Appbar,
@@ -29,23 +30,24 @@ function ConferenceListScreen() {
 
 		return (
 			<Card style={styles.card} elevation={2}>
+				<View style={styles.coverContainer}>
+					<Image
+						source={{ uri: item.image_url ?? "https://picsum.photos/700" }}
+						style={styles.cover}
+					/>
+				</View>
+
 				<Card.Content>
 					<View style={styles.headerContainer}>
-						<Avatar.Icon
-							size={48}
-							icon="calendar-month"
-							style={{ backgroundColor: theme.colors.primary }}
-						/>
 						<View style={styles.titleContainer}>
-							<Title>{item.name}</Title>
-							<Paragraph>{item.location}</Paragraph>
+							<Text variant="headlineMedium">{item.name}</Text>
+							<Text variant="labelMedium">{item.location}</Text>
 						</View>
 					</View>
 					<Paragraph style={styles.description}>{item.description}</Paragraph>
-					<View style={styles.dateContainer}>
-						<Paragraph>From: {formattedStartDate}</Paragraph>
-						<Paragraph>To: {formattedEndDate}</Paragraph>
-					</View>
+					<Paragraph>
+						{formattedStartDate} - {formattedEndDate}
+					</Paragraph>
 				</Card.Content>
 
 				<Card.Actions>
@@ -78,7 +80,7 @@ function ConferenceListScreen() {
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet((_, { insets }) => ({
+const sheet = createStyleSheet(({ roundness }, { insets }) => ({
 	screen: {
 		flex: 1,
 		paddingBottom: insets.bottom,
@@ -89,19 +91,27 @@ const sheet = createStyleSheet((_, { insets }) => ({
 	card: {
 		marginBottom: 16,
 	},
+	coverContainer: {
+		height: 195,
+		overflow: "hidden",
+		borderRadius: roundness,
+	},
+	cover: {
+		flex: 1,
+		height: undefined,
+		width: undefined,
+		padding: 16,
+		justifyContent: "flex-end",
+	},
 	headerContainer: {
 		flexDirection: "row",
 		alignItems: "center",
-		marginBottom: 8,
+		marginVertical: 8,
 	},
 	titleContainer: {
-		marginLeft: 16,
 		flex: 1,
 	},
 	description: {
 		marginBottom: 8,
-	},
-	dateContainer: {
-		marginTop: 8,
 	},
 }));
