@@ -8,18 +8,22 @@ function HomeScreen() {
 	const navigation = useNavigation();
 
 	function goToConferenceList() {
-		navigation.navigate("ConferenceList");
+		navigation.navigate("BottomTab", {
+			screen: "HomeStack",
+			params: {
+				screen: "ConferenceListScreen",
+			},
+		});
 	}
 
 	function goToProfile() {
-		navigation.navigate("Profile");
+		navigation.navigate("BottomTab", {
+			screen: "ProfileScreen",
+		});
 	}
 
 	return (
 		<View style={styles.screen}>
-			<Appbar.Header>
-				<Appbar.Content title="Home" />
-			</Appbar.Header>
 			<View style={styles.content}>
 				<Text variant="titleLarge" style={styles.title}>
 					Welcome!
@@ -39,10 +43,11 @@ function HomeScreen() {
 
 export default HomeScreen;
 
-const sheet = createStyleSheet(({ colors }) => ({
+const sheet = createStyleSheet((_, { insets }) => ({
 	screen: {
 		flex: 1,
 		justifyContent: "center",
+		paddingTop: insets.top,
 	},
 	content: {
 		flex: 1,

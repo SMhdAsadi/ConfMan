@@ -80,10 +80,9 @@ function ConferenceListScreen() {
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet(({ roundness }, { insets }) => ({
+const sheet = createStyleSheet(({ roundness }) => ({
 	screen: {
 		flex: 1,
-		paddingBottom: insets.bottom,
 	},
 	listContainer: {
 		padding: 16,

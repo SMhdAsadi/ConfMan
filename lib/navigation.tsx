@@ -3,11 +3,49 @@ import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
 import { ProfileScreen } from "@/screens/ProfileScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
 	type StaticParamList,
 	createStaticNavigation,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Icon } from "react-native-paper";
+
+const HomeStack = createNativeStackNavigator({
+	screenOptions: {
+		headerShown: false,
+	},
+	screens: {
+		HomeScreen,
+		ConferenceListScreen,
+	},
+});
+
+const BottomTab = createBottomTabNavigator({
+	screenOptions: {
+		headerShown: false,
+	},
+	screens: {
+		HomeStack: {
+			screen: HomeStack,
+			options: {
+				title: "Home",
+				tabBarIcon: ({ color, size }) => (
+					<Icon source="home" size={size} color={color} />
+				),
+			},
+		},
+		ProfileScreen: {
+			screen: ProfileScreen,
+			options: {
+				title: "Profile",
+				tabBarIcon: ({ color, size }) => (
+					<Icon source="account" size={size} color={color} />
+				),
+			},
+		},
+	},
+});
 
 const RootStack = createNativeStackNavigator({
 	screenOptions: {
@@ -17,15 +55,13 @@ const RootStack = createNativeStackNavigator({
 		SignedIn: {
 			if: useIsLoggedIn,
 			screens: {
-				Home: HomeScreen,
-				Profile: ProfileScreen,
-				ConferenceList: ConferenceListScreen,
+				BottomTab,
 			},
 		},
 		SignedOut: {
 			if: useIsLoggedOut,
 			screens: {
-				Login: LoginScreen,
+				LoginScreen,
 			},
 		},
 	},

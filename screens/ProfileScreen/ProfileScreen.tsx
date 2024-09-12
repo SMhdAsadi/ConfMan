@@ -14,11 +14,6 @@ function ProfileScreen() {
 
 	return (
 		<Surface style={styles.container}>
-			<Appbar.Header>
-				<Appbar.BackAction onPress={navigation.goBack} />
-				<Appbar.Content title="Profile" />
-			</Appbar.Header>
-
 			<View style={styles.content}>
 				<ProfileHeader />
 				<ProfileAppearanceSection />
@@ -32,11 +27,12 @@ function ProfileScreen() {
 
 export default ProfileScreen;
 
-const sheet = createStyleSheet({
+const sheet = createStyleSheet((_, { insets }) => ({
 	container: {
 		flex: 1,
+		paddingTop: insets.top,
 	},
 	content: {
 		paddingHorizontal: 16,
 	},
-});
+}));
