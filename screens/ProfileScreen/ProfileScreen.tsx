@@ -11,9 +11,6 @@ import ProfileLogoutButton from "./ProfileLogoutButton";
 function ProfileScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
-	const user = useUser();
-
-	if (!user) return null;
 
 	return (
 		<Surface style={styles.container}>
@@ -35,11 +32,11 @@ function ProfileScreen() {
 
 export default ProfileScreen;
 
-const sheet = createStyleSheet(({ colors }) => ({
+const sheet = createStyleSheet({
 	container: {
 		flex: 1,
 	},
 	content: {
 		paddingHorizontal: 16,
 	},
-}));
+});
