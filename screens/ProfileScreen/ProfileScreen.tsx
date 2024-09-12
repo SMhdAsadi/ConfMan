@@ -1,5 +1,6 @@
 import { useUser } from "@/contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { View } from "react-native";
 import { Appbar, Divider, Surface } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 import ProfileAppVersionSection from "./ProfileAppVersionSection";
@@ -21,11 +22,13 @@ function ProfileScreen() {
 				<Appbar.Content title="Profile" />
 			</Appbar.Header>
 
-			<ProfileHeader />
-			<ProfileAppearanceSection />
-			<Divider />
-			<ProfileAppVersionSection />
-			<ProfileLogoutButton />
+			<View style={styles.content}>
+				<ProfileHeader />
+				<ProfileAppearanceSection />
+				<Divider />
+				<ProfileAppVersionSection />
+				<ProfileLogoutButton />
+			</View>
 		</Surface>
 	);
 }
@@ -36,11 +39,7 @@ const sheet = createStyleSheet(({ colors }) => ({
 	container: {
 		flex: 1,
 	},
-	modalContainer: {
-		backgroundColor: colors.background,
-		padding: 20,
-		margin: 20,
-		rowGap: 16,
-		borderRadius: 8,
+	content: {
+		paddingHorizontal: 16,
 	},
 }));
