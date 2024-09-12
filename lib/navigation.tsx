@@ -1,6 +1,5 @@
 import { useIsLoggedIn, useIsLoggedOut } from "@/contexts/AuthContext";
 import ConferenceListScreen from "@/screens/ConferenceListScreen";
-import HomeScreen from "@/screens/HomeScreen";
 import LoginScreen from "@/screens/LoginScreen";
 import { ProfileScreen } from "@/screens/ProfileScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -16,7 +15,6 @@ const HomeStack = createNativeStackNavigator({
 		headerShown: false,
 	},
 	screens: {
-		HomeScreen,
 		ConferenceListScreen,
 	},
 });

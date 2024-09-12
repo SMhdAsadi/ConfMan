@@ -1,4 +1,7 @@
 import { useSignOutMutation } from "@/api/useSignOutMutation";
+import { queryClient } from "@/lib/queryClient";
+import { storage } from "@/state/storage";
+import { Image } from "expo-image";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button, Dialog, Portal, Snackbar, Text } from "react-native-paper";
@@ -20,6 +23,14 @@ function ProfileLogoutButton() {
 		hideDialog();
 		mutate(undefined, {
 			onError: showErrorSnackbar,
+			onSuccess: () => {
+				Image.clearDiskCache();
+				Image.clearMemoryCache();
+				queryClient.cancelQueries();
+				queryClient.removeQueries();
+				queryClient.clear();
+				storage.clearAll();
+			},
 		});
 	}
 

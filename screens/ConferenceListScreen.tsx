@@ -19,10 +19,9 @@ import { createStyleSheet, useStyles } from "react-native-unistyles";
 type Conference = Tables<"Conference">;
 
 function ConferenceListScreen() {
-	const { styles, theme } = useStyles(sheet);
-	const navigation = useNavigation();
+	const { styles } = useStyles(sheet);
 
-	const { data, error, isFetching, refetch } = useConferenceListQuery();
+	const { data, isFetching, refetch } = useConferenceListQuery();
 
 	const renderConferenceItem = ({ item }: { item: Conference }) => {
 		const formattedStartDate = format(new Date(item.start_date * 1000), "PPP");
@@ -60,11 +59,6 @@ function ConferenceListScreen() {
 
 	return (
 		<Surface style={styles.screen}>
-			<Appbar.Header>
-				<Appbar.BackAction onPress={navigation.goBack} />
-				<Appbar.Content title="Conferences" />
-			</Appbar.Header>
-
 			<FlatList
 				data={data}
 				renderItem={renderConferenceItem}
@@ -80,9 +74,10 @@ function ConferenceListScreen() {
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet(({ roundness }) => ({
+const sheet = createStyleSheet(({ roundness }, { insets }) => ({
 	screen: {
 		flex: 1,
+		paddingTop: insets.top,
 	},
 	listContainer: {
 		padding: 16,
