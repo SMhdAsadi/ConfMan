@@ -1,6 +1,5 @@
 import { useSignOutMutation } from "@/api/useSignOutMutation";
 import { useUser } from "@/contexts/AuthContext";
-import { useAppTheme } from "@/utils/themeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { View } from "react-native";
@@ -17,24 +16,20 @@ import {
 	Text,
 } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
+import ProfileAppearanceSection from "./ProfileAppearanceSection";
 import ProfileHeader from "./ProfileHeader";
-import ProfileThemeModal from "./ProfileThemeModal";
 
 function ProfileScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
 	const user = useUser();
 	const { error, isPending, mutate } = useSignOutMutation();
-	const appTheme = useAppTheme();
 
-	const [isThemeModalVisible, setIsThemeModalVisible] = useState(false);
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 	const [isErrorSnackbarVisible, setIsErrorSnackbarVisible] = useState(false);
 
 	if (!user) return null;
 
-	const showThemeModal = () => setIsThemeModalVisible(true);
-	const hideThemeModal = () => setIsThemeModalVisible(false);
 	const showDialog = () => setIsDialogVisible(true);
 	const hideDialog = () => setIsDialogVisible(false);
 	const showErrorSnackbar = () => setIsErrorSnackbarVisible(true);
@@ -55,17 +50,7 @@ function ProfileScreen() {
 			</Appbar.Header>
 
 			<ProfileHeader />
-
-			<List.Section>
-				<List.Subheader>Appearance</List.Subheader>
-				<List.Item
-					title="Theme"
-					description={appTheme.charAt(0).toUpperCase() + appTheme.slice(1)}
-					onPress={showThemeModal}
-					right={(props) => <List.Icon {...props} icon="chevron-right" />}
-				/>
-			</List.Section>
-
+			<ProfileAppearanceSection />
 			<Divider />
 
 			<List.Section>
@@ -110,11 +95,6 @@ function ProfileScreen() {
 					{error?.message}
 				</Snackbar>
 			</Portal>
-
-			<ProfileThemeModal
-				isVisible={isThemeModalVisible}
-				onDismiss={hideThemeModal}
-			/>
 		</Surface>
 	);
 }
