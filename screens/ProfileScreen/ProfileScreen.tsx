@@ -1,5 +1,6 @@
 import { useSignOutMutation } from "@/api/useSignOutMutation";
 import { useUser } from "@/contexts/AuthContext";
+import { useAppTheme } from "@/utils/themeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Appearance, View } from "react-native";
@@ -22,16 +23,15 @@ import {
 	createStyleSheet,
 	useStyles,
 } from "react-native-unistyles";
-
-type ThemeOption = "light" | "dark" | "system";
+import ProfileThemeModal from "./ProfileThemeModal";
 
 function ProfileScreen() {
 	const { styles } = useStyles(sheet);
 	const navigation = useNavigation();
 	const user = useUser();
 	const { error, isPending, mutate } = useSignOutMutation();
+	const appTheme = useAppTheme();
 
-	const [themeOption, setThemeOption] = useState<ThemeOption>("system");
 	const [isThemeModalVisible, setIsThemeModalVisible] = useState(false);
 	const [isDialogVisible, setIsDialogVisible] = useState(false);
 	const [isErrorSnackbarVisible, setIsErrorSnackbarVisible] = useState(false);
@@ -44,14 +44,6 @@ function ProfileScreen() {
 	const hideDialog = () => setIsDialogVisible(false);
 	const showErrorSnackbar = () => setIsErrorSnackbarVisible(true);
 	const hideErrorSnackbar = () => setIsErrorSnackbarVisible(false);
-
-	function handleThemeChange(newTheme: ThemeOption) {
-		setThemeOption(newTheme);
-		hideThemeModal();
-
-		Appearance.setColorScheme(newTheme === "system" ? null : newTheme);
-		UnistylesRuntime.setTheme(newTheme === "system" ? "dark" : newTheme);
-	}
 
 	function logout() {
 		hideDialog();
@@ -81,9 +73,7 @@ function ProfileScreen() {
 				<List.Subheader>Appearance</List.Subheader>
 				<List.Item
 					title="Theme"
-					description={
-						themeOption.charAt(0).toUpperCase() + themeOption.slice(1)
-					}
+					description={appTheme.charAt(0).toUpperCase() + appTheme.slice(1)}
 					onPress={showThemeModal}
 					right={(props) => <List.Icon {...props} icon="chevron-right" />}
 				/>
@@ -132,26 +122,12 @@ function ProfileScreen() {
 				>
 					{error?.message}
 				</Snackbar>
-
-				<Modal
-					visible={isThemeModalVisible}
-					onDismiss={hideThemeModal}
-					contentContainerStyle={styles.modalContainer}
-				>
-					<Text variant="titleLarge">Choose Theme</Text>
-					<RadioButton.Group
-						onValueChange={(newValue) =>
-							handleThemeChange(newValue as ThemeOption)
-						}
-						value={themeOption}
-					>
-						<RadioButton.Item label="Light" value="light" />
-						<RadioButton.Item label="Dark" value="dark" />
-						<RadioButton.Item label="System" value="system" />
-					</RadioButton.Group>
-					<Button onPress={hideThemeModal}>Close</Button>
-				</Modal>
 			</Portal>
+
+			<ProfileThemeModal
+				isVisible={isThemeModalVisible}
+				onDismiss={hideThemeModal}
+			/>
 		</Surface>
 	);
 }

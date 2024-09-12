@@ -1,11 +1,21 @@
+import { useDefiniteColorScheme } from "@/utils/themeUtils";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
-import { useColorScheme } from "react-native";
 import { MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 
+const colorSchemeToPaperTheme = {
+	light: MD3LightTheme,
+	dark: MD3DarkTheme,
+};
+const colorSchemeToNavigationTheme = {
+	light: DefaultTheme,
+	dark: DarkTheme,
+};
+
 export function useThemes() {
-	const colorScheme = useColorScheme() ?? "light";
-	const paperTheme = colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme;
-	const navigationTheme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
+	const colorScheme = useDefiniteColorScheme();
+
+	const paperTheme = colorSchemeToPaperTheme[colorScheme];
+	const navigationTheme = colorSchemeToNavigationTheme[colorScheme];
 
 	return {
 		paperTheme,
