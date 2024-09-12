@@ -1,80 +1,107 @@
 import { useConferenceListQuery } from "@/api/useConferenceListQuery";
 import type { Tables } from "@/database.types";
 import { useNavigation } from "@react-navigation/native";
-import { useCallback } from "react";
+import { format } from "date-fns";
 import { FlatList, RefreshControl, View } from "react-native";
-import { Appbar, Text } from "react-native-paper";
 import {
-	UnistylesRuntime,
-	createStyleSheet,
-	useStyles,
-} from "react-native-unistyles";
+	Appbar,
+	Avatar,
+	Button,
+	Card,
+	Paragraph,
+	Surface,
+	Text,
+	Title,
+} from "react-native-paper";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type Conference = Tables<"Conference">;
 
 function ConferenceListScreen() {
-	const { styles } = useStyles(sheet);
+	const { styles, theme } = useStyles(sheet);
 	const navigation = useNavigation();
 
 	const { data, error, isFetching, refetch } = useConferenceListQuery();
 
-	const renderItem = useCallback(
-		({ item }: { item: Conference }) => (
-			<View style={styles.item}>
-				<Text style={styles.title}>{item.name}</Text>
-				<Text>{item.description}</Text>
-				<Text>{item.location}</Text>
-				<Text>{new Date(item.start_date * 1000).toLocaleString()}</Text>
-				<Text>{new Date(item.end_date * 1000).toLocaleString()}</Text>
-			</View>
-		),
-		[styles],
-	);
+	const renderConferenceItem = ({ item }: { item: Conference }) => {
+		const formattedStartDate = format(new Date(item.start_date * 1000), "PPP");
+		const formattedEndDate = format(new Date(item.end_date * 1000), "PPP");
+
+		return (
+			<Card style={styles.card} elevation={2}>
+				<Card.Content>
+					<View style={styles.headerContainer}>
+						<Avatar.Icon
+							size={48}
+							icon="calendar-month"
+							style={{ backgroundColor: theme.colors.primary }}
+						/>
+						<View style={styles.titleContainer}>
+							<Title>{item.name}</Title>
+							<Paragraph>{item.location}</Paragraph>
+						</View>
+					</View>
+					<Paragraph style={styles.description}>{item.description}</Paragraph>
+					<View style={styles.dateContainer}>
+						<Paragraph>From: {formattedStartDate}</Paragraph>
+						<Paragraph>To: {formattedEndDate}</Paragraph>
+					</View>
+				</Card.Content>
+
+				<Card.Actions>
+					<Button>View Programs</Button>
+					<Button>View Participants</Button>
+				</Card.Actions>
+			</Card>
+		);
+	};
 
 	return (
-		<View style={styles.screen}>
+		<Surface style={styles.screen}>
 			<Appbar.Header>
 				<Appbar.BackAction onPress={navigation.goBack} />
 				<Appbar.Content title="Conferences" />
 			</Appbar.Header>
-			<View style={styles.content}>
-				{error && <Text>Error: {error.message}</Text>}
-				<FlatList
-					data={data}
-					renderItem={renderItem}
-					refreshControl={
-						<RefreshControl refreshing={isFetching} onRefresh={refetch} />
-					}
-					keyExtractor={(item) => item.conference_id.toString()}
-				/>
-			</View>
-		</View>
+
+			<FlatList
+				data={data}
+				renderItem={renderConferenceItem}
+				refreshControl={
+					<RefreshControl refreshing={isFetching} onRefresh={refetch} />
+				}
+				keyExtractor={(item) => item.conference_id.toString()}
+				contentContainerStyle={styles.listContainer}
+			/>
+		</Surface>
 	);
 }
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet(({ colors }) => ({
+const sheet = createStyleSheet((_, { insets }) => ({
 	screen: {
 		flex: 1,
+		paddingBottom: insets.bottom,
 	},
-	content: {
-		flex: 1,
+	listContainer: {
+		padding: 16,
+	},
+	card: {
+		marginBottom: 16,
+	},
+	headerContainer: {
+		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		marginBottom: 8,
 	},
-	fab: {
-		position: "absolute",
-		margin: 16,
-		right: 0,
-		bottom: UnistylesRuntime.insets.bottom,
+	titleContainer: {
+		marginLeft: 16,
+		flex: 1,
 	},
-	item: {
-		backgroundColor: "#f9c2ff",
-		padding: 20,
-		marginVertical: 8,
+	description: {
+		marginBottom: 8,
 	},
-	title: {
-		fontSize: 24,
+	dateContainer: {
+		marginTop: 8,
 	},
 }));
