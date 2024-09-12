@@ -3,7 +3,7 @@ import { useUser } from "@/contexts/AuthContext";
 import { useAppTheme } from "@/utils/themeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Appearance, View } from "react-native";
+import { View } from "react-native";
 import {
 	Appbar,
 	Avatar,
@@ -11,18 +11,13 @@ import {
 	Dialog,
 	Divider,
 	List,
-	Modal,
 	Portal,
-	RadioButton,
 	Snackbar,
 	Surface,
 	Text,
 } from "react-native-paper";
-import {
-	UnistylesRuntime,
-	createStyleSheet,
-	useStyles,
-} from "react-native-unistyles";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
+import ProfileHeader from "./ProfileHeader";
 import ProfileThemeModal from "./ProfileThemeModal";
 
 function ProfileScreen() {
@@ -59,15 +54,7 @@ function ProfileScreen() {
 				<Appbar.Content title="Profile" />
 			</Appbar.Header>
 
-			<View style={styles.header}>
-				<Avatar.Image
-					size={80}
-					source={{
-						uri: `https://ui-avatars.com/api/?background=BB86FC&color=fff&name=${user.email}`,
-					}}
-				/>
-				<Text variant="bodyLarge">{user.email}</Text>
-			</View>
+			<ProfileHeader />
 
 			<List.Section>
 				<List.Subheader>Appearance</List.Subheader>
@@ -137,11 +124,6 @@ export default ProfileScreen;
 const sheet = createStyleSheet(({ colors }) => ({
 	container: {
 		flex: 1,
-	},
-	header: {
-		alignItems: "center",
-		marginVertical: 24,
-		rowGap: 8,
 	},
 	buttonContainer: {
 		marginTop: 24,
