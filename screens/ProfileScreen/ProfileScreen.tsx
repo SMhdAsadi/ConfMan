@@ -16,6 +16,7 @@ import {
 	Text,
 } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
+import ProfileAppVersionSection from "./ProfileAppVersionSection";
 import ProfileAppearanceSection from "./ProfileAppearanceSection";
 import ProfileHeader from "./ProfileHeader";
 
@@ -52,14 +53,7 @@ function ProfileScreen() {
 			<ProfileHeader />
 			<ProfileAppearanceSection />
 			<Divider />
-
-			<List.Section>
-				<List.Item
-					title="App Version"
-					description="0.0.1"
-					left={(props) => <List.Icon {...props} icon="information" />}
-				/>
-			</List.Section>
+			<ProfileAppVersionSection />
 
 			<View style={styles.buttonContainer}>
 				<Button
