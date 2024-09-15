@@ -37,6 +37,19 @@ function ConferenceListScreen() {
 			});
 		}
 
+		function onViewParticipantsPress() {
+			navigation.navigate("BottomTab", {
+				screen: "HomeStack",
+				params: {
+					screen: "AttendanceListScreen",
+					params: {
+						conferenceId: item.conference_id,
+						title: item.name,
+					},
+				},
+			});
+		}
+
 		return (
 			<Card style={styles.card} elevation={2}>
 				<View style={styles.coverContainer}>
@@ -61,7 +74,7 @@ function ConferenceListScreen() {
 
 				<Card.Actions>
 					<Button onPress={onViewProgramPress}>View Programs</Button>
-					<Button>View Participants</Button>
+					<Button onPress={onViewParticipantsPress}>View Participants</Button>
 				</Card.Actions>
 			</Card>
 		);

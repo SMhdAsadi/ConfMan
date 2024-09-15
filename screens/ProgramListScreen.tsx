@@ -5,16 +5,8 @@ import {
 	useNavigation,
 } from "@react-navigation/native";
 import { format } from "date-fns";
-import { faIR } from "date-fns/locale";
 import { FlatList, RefreshControl, View } from "react-native";
-import {
-	Appbar,
-	Card,
-	Paragraph,
-	Surface,
-	Text,
-	Title,
-} from "react-native-paper";
+import { Appbar, Card, Paragraph, Surface, Title } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type Props = StaticScreenProps<{

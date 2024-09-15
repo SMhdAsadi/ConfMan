@@ -1,4 +1,5 @@
 import { useIsLoggedIn, useIsLoggedOut } from "@/contexts/AuthContext";
+import AttendanceListScreen from "@/screens/AttendanceListScreen";
 import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import LoginScreen from "@/screens/LoginScreen";
 import { ProfileScreen } from "@/screens/ProfileScreen";
@@ -18,6 +19,7 @@ const HomeStack = createNativeStackNavigator({
 	screens: {
 		ConferenceListScreen,
 		ProgramListScreen,
+		AttendanceListScreen,
 	},
 });
 
