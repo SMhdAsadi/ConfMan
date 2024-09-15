@@ -65,7 +65,7 @@ function ProgramListScreen(props: Props) {
 
 export default ProgramListScreen;
 
-const stylesheet = createStyleSheet((_, { insets }) => ({
+const stylesheet = createStyleSheet(({ colors }, { insets }) => ({
 	screen: {
 		flex: 1,
 		paddingTop: insets.top,
@@ -74,6 +74,7 @@ const stylesheet = createStyleSheet((_, { insets }) => ({
 		padding: 16,
 	},
 	card: {
+		backgroundColor: colors.surface,
 		marginBottom: 16,
 	},
 	dateContainer: {

@@ -51,7 +51,7 @@ function ConferenceListScreen() {
 		}
 
 		return (
-			<Card style={styles.card} elevation={2}>
+			<Card style={styles.card}>
 				<View style={styles.coverContainer}>
 					<Image
 						source={{ uri: item.image_url ?? "https://picsum.photos/700" }}
@@ -100,7 +100,7 @@ function ConferenceListScreen() {
 
 export default ConferenceListScreen;
 
-const sheet = createStyleSheet(({ roundness }, { insets }) => ({
+const sheet = createStyleSheet(({ roundness, colors }, { insets }) => ({
 	screen: {
 		flex: 1,
 		paddingTop: insets.top,
@@ -109,6 +109,7 @@ const sheet = createStyleSheet(({ roundness }, { insets }) => ({
 		padding: 16,
 	},
 	card: {
+		backgroundColor: colors.surface,
 		marginBottom: 16,
 	},
 	coverContainer: {

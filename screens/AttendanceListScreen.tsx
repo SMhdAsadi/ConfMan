@@ -15,7 +15,7 @@ type Props = StaticScreenProps<{
 
 function AttendanceListScreen(props: Props) {
 	const { conferenceId, title } = props.route.params;
-	const { styles, theme } = useStyles(stylesheet);
+	const { styles } = useStyles(stylesheet);
 
 	const navigation = useNavigation();
 	const { data, isFetching, refetch } = useAttendanceListQuery({
@@ -28,7 +28,7 @@ function AttendanceListScreen(props: Props) {
 				<Avatar.Text
 					size={48}
 					label={`${item.first_name[0]}${item.last_name[0]}`}
-					style={{ backgroundColor: theme.colors.primary }}
+					style={styles.avatar}
 				/>
 
 				<View style={styles.details}>
@@ -75,7 +75,7 @@ function AttendanceListScreen(props: Props) {
 
 export default AttendanceListScreen;
 
-const stylesheet = createStyleSheet((_, { insets }) => ({
+const stylesheet = createStyleSheet(({ colors }, { insets }) => ({
 	screen: {
 		flex: 1,
 		paddingTop: insets.top,
@@ -85,12 +85,16 @@ const stylesheet = createStyleSheet((_, { insets }) => ({
 	},
 	card: {
 		marginBottom: 16,
+		backgroundColor: colors.surface,
 	},
 	container: {
 		flexDirection: "row",
 		alignItems: "center",
 		paddingVertical: 8,
 		paddingHorizontal: 16,
+	},
+	avatar: {
+		backgroundColor: colors.primary,
 	},
 	details: {
 		flex: 1,
@@ -99,19 +103,20 @@ const stylesheet = createStyleSheet((_, { insets }) => ({
 	name: {
 		fontWeight: "bold",
 		marginBottom: 4,
+		color: colors.onSurface,
 	},
 	email: {
-		color: "gray",
+		color: colors.onSurface,
 	},
 	organization: {
-		color: "blue",
+		color: colors.secondary,
 		marginTop: 4,
 	},
 	icon: {
 		marginLeft: 8,
 	},
 	phone: {
-		color: "green",
+		color: colors.secondary,
 		marginTop: 4,
 	},
 }));
