@@ -4,28 +4,31 @@ import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
 import { Image } from "expo-image";
 import { FlatList, RefreshControl, View } from "react-native";
-import {
-	Appbar,
-	Avatar,
-	Button,
-	Card,
-	Paragraph,
-	Surface,
-	Text,
-	Title,
-} from "react-native-paper";
+import { Button, Card, Paragraph, Surface, Text } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
-
-type Conference = Tables<"Conference">;
 
 function ConferenceListScreen() {
 	const { styles } = useStyles(sheet);
+	const navigation = useNavigation();
 
 	const { data, isFetching, refetch } = useConferenceListQuery();
 
-	const renderConferenceItem = ({ item }: { item: Conference }) => {
+	const renderConferenceItem = ({ item }: { item: Tables<"Conference"> }) => {
 		const formattedStartDate = format(new Date(item.start_date * 1000), "PPP");
 		const formattedEndDate = format(new Date(item.end_date * 1000), "PPP");
+
+		function onViewProgramPress() {
+			navigation.navigate("BottomTab", {
+				screen: "HomeStack",
+				params: {
+					screen: "ProgramListScreen",
+					params: {
+						conferenceId: item.conference_id,
+						title: item.name,
+					},
+				},
+			});
+		}
 
 		return (
 			<Card style={styles.card} elevation={2}>
@@ -50,7 +53,7 @@ function ConferenceListScreen() {
 				</Card.Content>
 
 				<Card.Actions>
-					<Button>View Programs</Button>
+					<Button onPress={onViewProgramPress}>View Programs</Button>
 					<Button>View Participants</Button>
 				</Card.Actions>
 			</Card>

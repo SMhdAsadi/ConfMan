@@ -2,6 +2,7 @@ import { useIsLoggedIn, useIsLoggedOut } from "@/contexts/AuthContext";
 import ConferenceListScreen from "@/screens/ConferenceListScreen";
 import LoginScreen from "@/screens/LoginScreen";
 import { ProfileScreen } from "@/screens/ProfileScreen";
+import ProgramListScreen from "@/screens/ProgramListScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
 	type StaticParamList,
@@ -16,6 +17,7 @@ const HomeStack = createNativeStackNavigator({
 	},
 	screens: {
 		ConferenceListScreen,
+		ProgramListScreen,
 	},
 });
 
