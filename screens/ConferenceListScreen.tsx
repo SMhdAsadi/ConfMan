@@ -4,7 +4,14 @@ import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
 import { Image } from "expo-image";
 import { FlatList, RefreshControl, View } from "react-native";
-import { Button, Card, Paragraph, Surface, Text } from "react-native-paper";
+import {
+	Appbar,
+	Button,
+	Card,
+	Paragraph,
+	Surface,
+	Text,
+} from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function ConferenceListScreen() {
@@ -62,6 +69,9 @@ function ConferenceListScreen() {
 
 	return (
 		<Surface style={styles.screen}>
+			<Appbar>
+				<Appbar.Content title="Conferences" />
+			</Appbar>
 			<FlatList
 				data={data}
 				renderItem={renderConferenceItem}
