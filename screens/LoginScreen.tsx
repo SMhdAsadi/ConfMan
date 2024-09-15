@@ -1,7 +1,14 @@
 import { useSignInMutation } from "@/api/useSignInMutation";
 import { useState } from "react";
-import { View } from "react-native";
-import { Button, HelperText, Text, TextInput } from "react-native-paper";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
+import {
+	Avatar,
+	Button,
+	HelperText,
+	Surface,
+	Text,
+	TextInput,
+} from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 function LoginScreen() {
@@ -18,26 +25,39 @@ function LoginScreen() {
 	}
 
 	return (
-		<View style={styles.screen}>
-			<View style={styles.header}>
-				<Text variant="headlineLarge">ConfMan</Text>
-				<Text variant="titleLarge">Login to your account</Text>
-			</View>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={styles.container}
+		>
+			<Surface style={styles.surface} elevation={4}>
+				<Avatar.Image
+					size={80}
+					source={require("@/assets/icon.png")}
+					style={styles.appIcon}
+				/>
+				<Text variant="headlineMedium" style={styles.title}>
+					Welcome Back
+				</Text>
+				<Text variant="titleMedium" style={styles.subtitle}>
+					Sign in to continue
+				</Text>
 
-			<View style={styles.content}>
 				<TextInput
-					mode="outlined"
 					label="Email"
 					value={email}
 					onChangeText={setEmail}
+					style={styles.input}
+					mode="outlined"
+					keyboardType="email-address"
+					autoCapitalize="none"
 					left={<TextInput.Icon icon="email" />}
-					style={styles.email}
 				/>
 				<TextInput
-					mode="outlined"
 					label="Password"
 					value={password}
 					onChangeText={setPassword}
+					style={styles.input}
+					mode="outlined"
 					secureTextEntry={isPasswordHidden}
 					left={<TextInput.Icon icon="shield" />}
 					right={
@@ -50,30 +70,60 @@ function LoginScreen() {
 				<HelperText type="error" visible={error !== null}>
 					{error?.message}
 				</HelperText>
-			</View>
 
-			<Button mode="contained" onPress={login} loading={isPending}>
-				Login
-			</Button>
-		</View>
+				<Button
+					mode="contained"
+					onPress={login}
+					icon="login"
+					contentStyle={styles.button}
+					loading={isPending}
+					labelStyle={styles.buttonText}
+				>
+					Login
+				</Button>
+			</Surface>
+		</KeyboardAvoidingView>
 	);
 }
 
 export default LoginScreen;
 
-const sheet = createStyleSheet(({ colors }) => ({
-	screen: {
+const sheet = createStyleSheet(() => ({
+	container: {
 		flex: 1,
 		justifyContent: "center",
 		paddingHorizontal: 24,
 	},
-	header: {
+	surface: {
+		padding: 20,
+		borderRadius: 24,
+	},
+	appIcon: {
+		alignSelf: "center",
+		marginBottom: 20,
+	},
+	title: {
+		marginBottom: 8,
+		textAlign: "center",
+	},
+	subtitle: {
+		marginBottom: 20,
+		textAlign: "center",
+		opacity: 0.7,
+	},
+	input: {
 		marginBottom: 16,
 	},
-	content: {
-		marginBottom: 36,
+	button: {
+		paddingVertical: 8,
 	},
-	email: {
-		marginBottom: 12,
+	buttonText: {
+		fontSize: 16,
+		fontWeight: "bold",
+	},
+	linksContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		marginTop: 16,
 	},
 }));
