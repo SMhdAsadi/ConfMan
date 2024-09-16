@@ -3,7 +3,7 @@ import type { ConfigContext, ExpoConfig } from "@expo/config";
 const SLUG = "confman";
 const VARIANT = process.env.APP_VARIANT ?? "dev";
 const IS_DEV = VARIANT === "dev";
-const VERSION = "0.0.1";
+const VERSION = "0.8.0";
 
 export default ({ config }: ConfigContext): ExpoConfig => {
 	const bundleIdentifier = IS_DEV

@@ -5,7 +5,7 @@ function ProfileAppVersionSection() {
 		<List.Section>
 			<List.Item
 				title="App Version"
-				description="0.0.1"
+				description="0.8.0"
 				left={(props) => <List.Icon {...props} icon="information" />}
 			/>
 		</List.Section>
