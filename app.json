@@ -19,6 +19,7 @@
 				"backgroundColor": "#006767"
 			},
 			"package": "com.smhdasadi.ConfMan"
-		}
+		},
+		"plugins": ["./config-plugins/withAndroidSplitArchitectures.js"]
 	}
 }
