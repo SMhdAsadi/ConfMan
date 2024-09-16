@@ -3,7 +3,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PaperProvider } from "react-native-paper";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+	SafeAreaProvider,
+	useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { useGlobalListeners } from "./hooks/useGlobalListeners";
@@ -22,11 +25,6 @@ function App() {
 				<AuthProvider>
 					<QueryClientProvider client={queryClient}>
 						<AppContent />
-						<Toaster
-							position="bottom-center"
-							swipeToDismissDirection="left"
-							duration={2000}
-						/>
 					</QueryClientProvider>
 				</AuthProvider>
 			</SafeAreaProvider>
@@ -37,12 +35,14 @@ function App() {
 function AppContent() {
 	const { isLoading } = useAuth();
 	const { navigationTheme, paperTheme } = useThemes();
+	const insets = useSafeAreaInsets();
 
 	if (isLoading) return null;
 
 	return (
 		<PaperProvider theme={paperTheme}>
 			<Navigation theme={navigationTheme} onReady={SplashScreen.hideAsync} />
+			<Toaster offset={insets.top + 16} />
 		</PaperProvider>
 	);
 }

@@ -1,19 +1,13 @@
 import { useSignInMutation } from "@/api/useSignInMutation";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, View } from "react-native";
-import {
-	Avatar,
-	Button,
-	HelperText,
-	Surface,
-	Text,
-	TextInput,
-} from "react-native-paper";
+import { KeyboardAvoidingView, Platform } from "react-native";
+import { Avatar, Button, Surface, Text, TextInput } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
+import { toast } from "sonner-native";
 
 function LoginScreen() {
 	const { styles } = useStyles(sheet);
-	const { error, isPending, mutate } = useSignInMutation();
+	const { isPending, mutate } = useSignInMutation();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -21,7 +15,16 @@ function LoginScreen() {
 	const textInputIcon = isPasswordHidden ? "eye-off" : "eye";
 
 	function login() {
-		mutate({ email, password });
+		mutate(
+			{ email, password },
+			{
+				onSuccess({ user }) {
+					toast.success(`Welcome ${user.email}!`, {
+						closeButton: true,
+					});
+				},
+			},
+		);
 	}
 
 	return (
@@ -67,9 +70,6 @@ function LoginScreen() {
 						/>
 					}
 				/>
-				<HelperText type="error" visible={error !== null}>
-					{error?.message}
-				</HelperText>
 
 				<Button
 					mode="contained"

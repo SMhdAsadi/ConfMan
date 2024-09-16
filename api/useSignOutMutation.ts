@@ -1,3 +1,4 @@
+import { onLogout } from "@/events/onLogout";
 import { supabase } from "@/lib/supabase";
 import { useMutation } from "@tanstack/react-query";
 
@@ -10,5 +11,6 @@ async function signOut() {
 export function useSignOutMutation() {
 	return useMutation({
 		mutationFn: signOut,
+		onSuccess: onLogout,
 	});
 }
