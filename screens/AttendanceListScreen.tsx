@@ -1,11 +1,12 @@
 import { useAttendanceListQuery } from "@/api/useAttendanceListQuery";
+import Avatar from "@/components/Avatar";
 import type { Tables } from "@/database.types";
 import {
 	type StaticScreenProps,
 	useNavigation,
 } from "@react-navigation/native";
 import { FlatList, RefreshControl, View } from "react-native";
-import { Appbar, Avatar, Card, Surface, Text } from "react-native-paper";
+import { Appbar, Card, Surface, Text } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type Props = StaticScreenProps<{
@@ -25,12 +26,7 @@ function AttendanceListScreen(props: Props) {
 	const renderParticipantItem = ({ item }: { item: Tables<"Participant"> }) => (
 		<Card style={styles.card} mode="elevated">
 			<View style={styles.container}>
-				<Avatar.Text
-					size={48}
-					label={`${item.first_name[0]}${item.last_name[0]}`}
-					style={styles.avatar}
-				/>
-
+				<Avatar firstName={item.first_name} lastName={item.last_name} />
 				<View style={styles.details}>
 					<Text variant="titleMedium" style={styles.name}>
 						{item.first_name} {item.last_name}
@@ -92,9 +88,6 @@ const stylesheet = createStyleSheet(({ colors }, { insets }) => ({
 		alignItems: "center",
 		paddingVertical: 8,
 		paddingHorizontal: 16,
-	},
-	avatar: {
-		backgroundColor: colors.primary,
 	},
 	details: {
 		flex: 1,
